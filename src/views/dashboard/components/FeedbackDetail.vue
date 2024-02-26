@@ -1,22 +1,28 @@
 <template>
   <div class="mt-2">
-    <p><span @click="$router.go(-1)" class="back-icon"><i class="bi bi-chevron-left"></i></span><span class="back-heading">Back</span></p>
-    <p class="feedback-title mt-3">Feedback Title: {{ feedback.title }}</p>
-    <p class="feedback-submitted">Submitted by: {{ feedback.user_name }}</p>
-    <p class="feedback-submitted">Submitted at: {{ feedback.created_at }}</p>
-    <p>Description: {{feedback.description}}</p>
-    <div class="timeline">
-      <div class="comment-container" v-for="comment in comments">
-        <div class="comment-content">
-          <span class="comment-user">{{comment.user_name}}</span>
-          <span class="comment-date-time">{{comment.created_at}}</span>
-          <p class="comment-text" v-if="comment.content !== '<p><br></p>'" v-html="comment.content"></p>
+    <div class="row">
+      <div class="col-lg-1">
+        <p><span @click="$router.go(-1)" class="back-icon"><i class="bi bi-chevron-left"></i></span><span class="back-heading">Back</span></p>
+      </div>
+      <div class="col-lg-11">
+        <p class="feedback-title mt-3">Feedback Title: {{ feedback.title }}</p>
+        <p class="feedback-submitted">Submitted by: {{ feedback.user_name }}</p>
+        <p class="feedback-submitted">Submitted at: {{ feedback.created_at }}</p>
+        <p>Description: {{feedback.description}}</p>
+        <div class="timeline">
+          <div class="comment-container" v-for="comment in comments">
+            <div class="comment-content">
+              <span class="comment-user">{{comment.user_name}}</span>
+              <span class="comment-date-time">{{comment.created_at}}</span>
+              <p class="comment-text" v-if="comment.content !== '<p><br></p>'" v-html="comment.content"></p>
+            </div>
+          </div>
+        </div>
+        <div class="my-4">
+          <QuillEditor placeholder="Write your comment" :matchVisual="false" ref="quillEditor" theme="snow" v-model:content="commentInput" contentType="html" toolbar="essential"/>
+          <el-button :loading="loadingButton" @click="sendComment" class="comment-btn text-white mt-3" color="#C4A662">Send</el-button>
         </div>
       </div>
-    </div>
-    <div class="my-4">
-        <QuillEditor placeholder="Write your comment" :matchVisual="false" ref="quillEditor" theme="snow" v-model:content="commentInput" contentType="html" toolbar="essential"/>
-      <el-button :loading="loadingButton" @click="sendComment" class="comment-btn text-white mt-3" color="#C4A662">Send</el-button>
     </div>
   </div>
 </template>
