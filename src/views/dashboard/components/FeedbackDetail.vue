@@ -32,7 +32,6 @@ import {computed, onMounted, ref} from "vue";
 import {useRoute} from "vue-router";
 import {apiClient} from "@/services/ApiRequest";
 import { QuillEditor } from '@vueup/vue-quill'
-import { VueTribute } from 'vue-tribute'
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
 
 const loadingButton = ref(false)
@@ -43,17 +42,6 @@ const users = ref([])
 const route = useRoute()
 const id = route.params.id
 const quillEditor = ref(null)
-
-// const program = computed(()=>programStore.singleProgram)
-const options = {
-  trigger: '@',
-  values: [
-    { key: 'Sarah Drasner', value: 'sarah_edo' },
-    { key: 'Evan You', value: 'youyuxi' },
-    { key: 'Adam Wathan', value: 'adamwathan' },
-    { key: 'Rich Harris', value: 'Rich_Harris' },
-  ],
-}
 
 const sendComment = () => {
   if ((commentInput.value === '' || commentInput.value === '<p><br></p>')) return
